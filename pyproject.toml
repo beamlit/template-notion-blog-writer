@@ -1,0 +1,40 @@
+[project]
+name = "blog-post"
+version = "0.1.0"
+description = "A Beamlit agent that creates blog posts in Notion"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "beamlit>=0.0.63",
+    "langchain-openai>=0.3.0,<0.4.0",
+    "langchain-cohere>=0.4.2",
+    "langchain-xai>=0.2.0",
+    "langchain-anthropic>=0.3.4",
+    "langchain-mistralai>=0.2.5",
+    "langchain-deepseek-official>=0.1.0",
+    "notion-client>=2.0.0",
+    "python-dotenv>=0.19.0",
+]
+
+[tool.hatch.build.targets.wheel]
+packages = ["src"]
+
+[dependency-groups]
+dev = [
+    "ruff>=0.8.2",
+]
+
+[tool.ruff]
+indent-width = 4
+
+[tool.ruff.format]
+indent-style = "space"
+quote-style = "double"
+skip-magic-trailing-comma = false
+
+[tool.ruff.lint]
+select = ["E", "F"]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"

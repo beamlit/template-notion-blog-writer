@@ -1,0 +1,43 @@
+apiVersion: beamlit.com/v1alpha1
+kind: IntegrationConnection
+metadata:
+  name: exa-integration
+spec:
+  integration: exa
+  secret:
+    exaApiKey: "${secrets.EXA_API_KEY}"
+---
+apiVersion: beamlit.com/v1alpha1
+kind: Function
+metadata:
+  name: exa
+spec:
+  integrationConnections:
+    - exa-integration
+  runtime:
+    type: mcp
+---
+apiVersion: beamlit.com/v1alpha1
+kind: IntegrationConnection
+metadata:
+  name: dall-e-integration
+spec:
+  integration: dall-e
+  secret:
+    apiKey: "${secrets.OPENAI_API_KEY}"
+---
+apiVersion: beamlit.com/v1alpha1
+kind: Function
+metadata:
+  displayName: dall-e
+  name: dall-e
+spec:
+  description: Generate images with the OpenAI Dall-E model
+  enabled: true
+  flavors:
+  - name: all
+    type: cpu
+  integrationConnections:
+  - dall-e-integration
+  runtime:
+    type: mcp

@@ -1,0 +1,27 @@
+
+apiVersion: beamlit.com/v1alpha1
+kind: Function
+metadata:
+  displayName: create-notion-post
+  labels:
+    x-beamlit-auto-generated: 'true'
+  name: create-notion-post
+  workspace: demo
+spec:
+  description: 'Creates a new blog post in Notion with an optional cover image. Args:
+    title: The title of the blog post content: The markdown content of the blog post
+    cover_image_url: Optional URL for the cover image'
+  parameters:
+  - description: Parameter title
+    name: title
+    required: true
+    type: string
+  - description: Parameter content
+    name: content
+    required: true
+    type: string
+  - description: Parameter cover_image_url
+    name: cover_image_url
+    required: false
+    type: string
+
