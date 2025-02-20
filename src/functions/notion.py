@@ -153,7 +153,24 @@ def process_inline_formatting(text: str) -> list:
     
     return formatted_text
 
-@function()
+@function(
+    function={
+        "spec": {
+            "runtime": {
+                "envs": [
+                    {
+                    "name": "NOTION_TOKEN",
+                    "value": "${secrets.NOTION_TOKEN}",
+                },
+                {
+                    "name": "NOTION_DATABASE_ID",
+                    "value": "${secrets.NOTION_DATABASE_ID}",
+                }
+                ]
+            }
+        }
+    }
+)
 async def create_notion_post(title: str, content: str, cover_image_url: str = None) -> dict:
     """Creates a new blog post in Notion with an optional cover image.
     

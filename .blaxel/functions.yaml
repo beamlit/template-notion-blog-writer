@@ -1,4 +1,25 @@
-apiVersion: beamlit.com/v1alpha1
+apiVersion: blaxel.ai/v1alpha1
+kind: IntegrationConnection
+metadata:
+  name: openai-integration
+spec:
+  integration: openai
+  secret:
+    apiKey: ${secrets.OPENAI_API_KEY}
+---
+apiVersion: blaxel.ai/v1alpha1
+kind: Model
+metadata:
+  name: gpt-4o
+  displayName: GPT 4o
+spec:
+  integrationConnections:
+    - openai-integration
+  runtime:
+    model: gpt-4o
+    type: openai
+---
+apiVersion: blaxel.ai/v1alpha1
 kind: IntegrationConnection
 metadata:
   name: exa-integration
@@ -7,7 +28,7 @@ spec:
   secret:
     exaApiKey: "${secrets.EXA_API_KEY}"
 ---
-apiVersion: beamlit.com/v1alpha1
+apiVersion: blaxel.ai/v1alpha1
 kind: Function
 metadata:
   name: exa
@@ -17,7 +38,7 @@ spec:
   runtime:
     type: mcp
 ---
-apiVersion: beamlit.com/v1alpha1
+apiVersion: blaxel.ai/v1alpha1
 kind: IntegrationConnection
 metadata:
   name: dall-e-integration
@@ -26,7 +47,7 @@ spec:
   secret:
     apiKey: "${secrets.OPENAI_API_KEY}"
 ---
-apiVersion: beamlit.com/v1alpha1
+apiVersion: blaxel.ai/v1alpha1
 kind: Function
 metadata:
   displayName: dall-e

@@ -25,19 +25,7 @@ from functions.notion import create_notion_post
             5. The content should be informative, engaging, and well-researched
             6. After writing the post, use the create_notion_post function to save it to Notion
                by passing the title, content, and cover_image_url.""",
-            "functions": [create_notion_post],
-            "runtime": {
-                "envs": [
-                    {
-                        "name": "NOTION_TOKEN",
-                        "value": "${secrets.NOTION_TOKEN}",
-                    },
-                    {
-                        "name": "NOTION_DATABASE_ID",
-                        "value": "${secrets.NOTION_DATABASE_ID}",
-                    }
-                ]
-            }
+            "functions": [create_notion_post]
         }
     },
     remote_functions=["exa", "dall-e"]
