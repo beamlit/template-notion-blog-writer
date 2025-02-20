@@ -1,4 +1,5 @@
 version = 1
+revision = 1
 requires-python = ">=3.12"
 resolution-markers = [
     "python_full_version >= '3.12.4'",
@@ -148,8 +149,8 @@ wheels = [
 ]
 
 [[package]]
-name = "beamlit"
-version = "0.0.63"
+name = "blaxel"
+version = "0.0.66"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "asgi-correlation-id" },
@@ -193,23 +194,25 @@ dependencies = [
     { name = "websocket" },
     { name = "websockets" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/11/33/c3ab12a878e5f4dafeeb4e4c46cf63a81d6916ac87cd65b0d0c8b6ce9fa1/beamlit-0.0.63.tar.gz", hash = "sha256:269035bde6c8644ecde0a7658a612e84f2e9c3ee8a76b04dd66a61b3a490406e", size = 316197 }
+sdist = { url = "https://files.pythonhosted.org/packages/be/14/845dba85a8a1a779d572745d795a3c2aa9e6f301482ebdcdcdad3f1787b8/blaxel-0.0.66.tar.gz", hash = "sha256:320a69e0d0845b16c1ad20e672e3a7c69dfe592fa5d72014d3f3ef6b956e72d5", size = 297309 }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/ce/e0/b39620ef18916aced26758fe4f026e1ba60378aa5bcc03289275bfd5f1fb/beamlit-0.0.63-py3-none-any.whl", hash = "sha256:5924ec25f653b860700204d2377478f90ef3dc28d61a44ab8e728f84ba4d7336", size = 257705 },
+    { url = "https://files.pythonhosted.org/packages/0b/ea/388e2a99f7dc083425f2b6311e2cd020c591aa0e38ee70d35b131ea17736/blaxel-0.0.66-py3-none-any.whl", hash = "sha256:01091035c8a6410bb5213c442815338080030fd98ba75c1e2f7c57c4937ad97f", size = 243371 },
 ]
 
 [[package]]
-name = "blog-post"
+name = "blog-writer"
 version = "0.1.0"
-source = { virtual = "." }
+source = { editable = "." }
 dependencies = [
-    { name = "beamlit" },
+    { name = "blaxel" },
     { name = "langchain-anthropic" },
     { name = "langchain-cohere" },
     { name = "langchain-deepseek-official" },
     { name = "langchain-mistralai" },
     { name = "langchain-openai" },
     { name = "langchain-xai" },
+    { name = "notion-client" },
+    { name = "python-dotenv" },
 ]
 
 [package.dev-dependencies]
@@ -219,13 +222,15 @@ dev = [
 
 [package.metadata]
 requires-dist = [
-    { name = "beamlit", specifier = ">=0.0.63" },
+    { name = "blaxel", specifier = ">=0.0.65" },
     { name = "langchain-anthropic", specifier = ">=0.3.4" },
     { name = "langchain-cohere", specifier = ">=0.4.2" },
     { name = "langchain-deepseek-official", specifier = ">=0.1.0" },
     { name = "langchain-mistralai", specifier = ">=0.2.5" },
     { name = "langchain-openai", specifier = ">=0.3.0,<0.4.0" },
     { name = "langchain-xai", specifier = ">=0.2.0" },
+    { name = "notion-client", specifier = ">=2.0.0" },
+    { name = "python-dotenv", specifier = ">=0.19.0" },
 ]
 
 [package.metadata.requires-dev]
@@ -1196,6 +1201,18 @@ source = { registry = "https://pypi.org/simple" }
 sdist = { url = "https://files.pythonhosted.org/packages/98/a4/1ab47638b92648243faf97a5aeb6ea83059cc3624972ab6b8d2316078d3f/mypy_extensions-1.0.0.tar.gz", hash = "sha256:75dbf8955dc00442a438fc4d0666508a9a97b6bd41aa2f0ffe9d2f2725af0782", size = 4433 }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/2a/e2/5d3f6ada4297caebe1a2add3b126fe800c96f56dbe5d1988a2cbe0b267aa/mypy_extensions-1.0.0-py3-none-any.whl", hash = "sha256:4392f6c0eb8a5668a69e23d168ffa70f0be9ccfd32b5cc2d26a34ae5b844552d", size = 4695 },
+]
+
+[[package]]
+name = "notion-client"
+version = "2.3.0"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "httpx" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/b2/67/c1284de4877496a669ef3a5be36726491dace66261a78a78f73555bffe84/notion-client-2.3.0.tar.gz", hash = "sha256:c4b4ae04ce182eb89611d41544dac710049683a4d7309c4b22fde52f81cbcb39", size = 18790 }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/61/ea/03f2fc5d3f5a42397c0ca5a210d5ed605959bc60d7f13d6e5bfa84d31488/notion_client-2.3.0-py2.py3-none-any.whl", hash = "sha256:6696bb057b7872477077d6a3bb4299c4a7924450e7d168174e79cbf8e01d9576", size = 13928 },
 ]
 
 [[package]]

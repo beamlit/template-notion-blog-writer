@@ -2,7 +2,7 @@ import uuid
 from typing import Union
 from fastapi import Request
 from langgraph.graph.graph import CompiledGraph
-from beamlit.agents import agent, get_default_thread
+from blaxel.agents import agent, get_default_thread
 from functions.notion import create_notion_post
 
 @agent(

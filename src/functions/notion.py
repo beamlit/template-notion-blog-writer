@@ -1,4 +1,4 @@
-from beamlit.functions import function
+from blaxel.functions import function
 from dotenv import load_dotenv
 from notion_client import Client
 import os

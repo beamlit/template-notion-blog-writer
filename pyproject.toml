@@ -1,11 +1,11 @@
 [project]
-name = "blog-post"
+name = "blog-writer"
 version = "0.1.0"
-description = "A Beamlit agent that creates blog posts in Notion"
+description = "A Blaxel agent that creates blog posts in Notion"
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
-    "beamlit>=0.0.63",
+    "blaxel>=0.0.65",
     "langchain-openai>=0.3.0,<0.4.0",
     "langchain-cohere>=0.4.2",
     "langchain-xai>=0.2.0",
