@@ -15,7 +15,19 @@ logger = getLogger(__name__)
         },
         "spec": {
             "model": "gpt-4o",
-            "description": "Automated blog post generator using LangGraph and GPT-4"
+            "description": "Automated blog post generator using LangGraph and GPT-4",
+            "runtime": {
+                "envs": [
+                    {
+                    "name": "NOTION_TOKEN",
+                    "value": "${secrets.NOTION_TOKEN}",
+                },
+                {
+                    "name": "NOTION_DATABASE_ID",
+                    "value": "${secrets.NOTION_DATABASE_ID}",
+                }
+                ]
+            }
         }
     },
     remote_functions=["exa", "dall-e"]
