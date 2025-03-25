@@ -1,6 +1,14 @@
 # Blaxel Agent - Blog Post Generator
 
-A template implementation of an automated blog post generator using LangGraph and GPT-4. This agent creates comprehensive blog posts on any given topic by:
+<p align="center">
+  <img src="https://blaxel.ai/logo.png" alt="Blaxel"/>
+</p>
+
+A template implementation of an automated blog post generator built using the [Blaxel SDK](https://blaxel.ai).
+
+## How it works
+
+This agent creates comprehensive blog posts on any given topic by:
 
 1. Analyzing the topic and generating a content outline
 2. Performing targeted web searches using Exa for research
@@ -10,104 +18,101 @@ A template implementation of an automated blog post generator using LangGraph an
 
 The implementation uses LangGraph for orchestrating the blog creation workflow. It leverages GPT-4 for content generation, Exa search API for research, an AI image generation service for illustrations, and the Notion API for publishing.
 
-## Key Features
+### Key Features
 
-* Automated blog post planning and writing
-* SEO-optimized content generation
-* Web research integration via Exa
-* AI-generated custom illustrations
-* Direct publishing to Notion database
-* Proper citation and source attribution
-
-## Acknowledgements
-
-* **Langchain:** For providing the LangGraph framework
-* **OpenAI:** For GPT-4 and DALL-E capabilities
-* **Notion:** For their API and content publishing
-* **Exa:** For powerful web search capabilities
+- Automated blog post planning and writing
+- SEO-optimized content generation
+- Web research integration via Exa
+- AI-generated custom illustrations
+- Direct publishing to Notion database
+- Proper citation and source attribution
 
 ## Prerequisites
 
-* **Python:** 3.12 or later
-* **UV:** An extremely fast Python package and project manager, written in Rust
-* **Blaxel CLI:** Ensure you have the Blaxel CLI installed. If not, install it globally:
+- **Python:** 3.12 or later
+- **UV:** An extremely fast Python package and project manager, written in Rust
+- **Blaxel CLI:** Ensure you have the Blaxel CLI installed. If not, install it globally:
+  ```bash
+  curl -fsSL https://raw.githubusercontent.com/beamlit/toolkit/main/install.sh | BINDIR=$HOME/.local/bin sh
+  ```
+- **Blaxel login:** Login to Blaxel platform
+  ```bash
+    bl login YOUR-WORKSPACE
+  ```
 
-```bash 
-curl -fsSL https://raw.githubusercontent.com/beamlit/toolkit/main/install.sh | BINDIR=$HOME/.local/bin sh
-```
+## Installation
 
-## Development Setup
+- **Clone the repository and install the dependencies**:
 
-If you want to modify the agent or contribute to its development:
+  ```bash
+  git clone https://github.com/beamlit/template-notion-blog-writer.git
+  cd template-notion-blog-writer
+  uv sync
+  ```
 
-1. **Clone the repository**:
+- **Environment Variables:** Create a `.env` file with your configuration. You can begin by copying the sample file:
 
-```bash
-git clone https://github.com/beamlit/template-notion-blog-writer.git
-cd template-notion-blog-writer
-```
+  ```bash
+  cp .env-sample .env
+  ```
 
-2. **Install dependencies**:
+  Then, update the following values with your own credentials:
 
-```bash
-uv sync
-```
+  - Notion: `NOTION_TOKEN`, `NOTION_DATABASE_ID`
+  - Open AI: `OPENAI_API_KEY`
+  - Exa: `EXA_API_KEY`
 
-3. **Set up your environment variables**:
-Create a `.env` file with your API keys:
+- **Blaxel apply:** register your integration connection / functions / models on blaxel.ai
+  ```bash
+  bl apply -R -f .blaxel
+  ```
 
-```bash
-EXA_API_KEY=your_exa_key
-OPENAI_API_KEY=your_openai_key
-NOTION_API_KEY=your_notion_key
-NOTION_DATABASE_ID=your_database_id
-```
+## Running the Server Locally
 
-4. **Register your integration**:
-
-```bash
-bl apply -R -f .blaxel
-```
-
-5. **Start development server**:
+Start the development server with hot reloading using the Blaxel CLI command:
 
 ```bash
 bl serve --hotreload
 ```
 
-## Testing
+_Note:_ This command starts the server and enables hot reload so that changes to the source code are automatically reflected.
 
-Test the agent locally using either:
+## Testing the agent
 
-Interactive chat mode
-
-```bash
-bl chat --local blog-writer
-```
-
-Or direct execution
+The server will start on port 1338. You can test the agent using the Blaxel CLI:
 
 ```bash
-bl run agent blog-writer --local --data '{"input": "Write a blog post about AI in healthcare"}'
+bl run agent my-agent --local --data '{"input": "Write a blog post about AI in healthcare"}'
+OR
+bl chat my-agent --local
 ```
 
-## Deployment
+## Deploying to Blaxel
 
-1. **Deploy to Blaxel Hub**:
+When you are ready to deploy your application, run:
 
 ```bash
 bl deploy
 ```
 
+This command uses your code and the configuration files under the `.blaxel` directory to deploy your application.
+
 ## Project Structure
 
-* **src/**
-  * `agent.py` - Configures the blog post agent, manages workflow, and handles API integrations
-  * `notion.py` - Notion API integration and publishing logic
-  * `functions/` - Custom functions (Notion)
-* **.blaxel/** - Contains configuration files for Blaxel functions and models to use in the agent (OpenAI and Exa)
-* **pyproject.toml** - UV package manager file
+- **src/**
+  - `agent.py` - Configures the blog post agent, manages workflow, and handles API integrations
+  - `functions/` - Custom functions (Notion)
+  - `functions/notion.py` - Notion API integration and publishing logic
+- **.blaxel/** - Contains configuration files for Blaxel functions and models to use in the agent (OpenAI and Exa)
+- **pyproject.toml** - UV package manager file
+
+## Acknowledgements
+
+- **Langchain:** For providing the LangGraph framework
+- **OpenAI:** For GPT-4 and DALL-E capabilities
+- **Notion:** For their API and content publishing
+- **Exa:** For powerful web search capabilities
 
 ## License
 
-This project is licensed under the MIT License. See the LICENSE file for more details.
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for more details.

@@ -5,15 +5,9 @@ description = "A Blaxel agent that creates blog posts in Notion"
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
-    "blaxel>=0.0.65",
+    "blaxel>=0.0.73",
     "langchain-openai>=0.3.0,<0.4.0",
-    "langchain-cohere>=0.4.2",
-    "langchain-xai>=0.2.0",
-    "langchain-anthropic>=0.3.4",
-    "langchain-mistralai>=0.2.5",
-    "langchain-deepseek-official>=0.1.0",
     "notion-client>=2.0.0",
-    "python-dotenv>=0.19.0",
 ]
 
 [tool.hatch.build.targets.wheel]

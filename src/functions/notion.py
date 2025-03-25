@@ -1,8 +1,11 @@
-from blaxel.functions import function
-from dotenv import load_dotenv
-from notion_client import Client
 import os
 import re
+from logging import getLogger
+
+from blaxel.functions import function
+from notion_client import Client
+
+logger = getLogger(__name__)
 
 def chunk_content(content: str, max_length: int = 2000) -> list:
     """Split content into chunks of maximum length."""
@@ -11,23 +14,22 @@ def chunk_content(content: str, max_length: int = 2000) -> list:
 def markdown_to_notion_blocks(markdown_text: str) -> list:
     """Convert markdown text to Notion blocks following official API structure."""
     blocks = []
-    
+
     # Split content into paragraphs
     paragraphs = markdown_text.split('\n')
-    current_list_type = None
-    
+
     i = 0
     while i < len(paragraphs):
         paragraph = paragraphs[i].strip()
         if not paragraph:
             i += 1
             continue
-            
+
         # Handle headers
         if paragraph.startswith('#'):
             header_level = len(paragraph.split()[0])  # Count the number of #
             header_text = paragraph.lstrip('#').strip()
-            
+
             if header_level <= 3:  # Notion supports h1, h2, h3
                 blocks.append({
                     "object": "block",
@@ -92,18 +94,18 @@ def markdown_to_notion_blocks(markdown_text: str) -> list:
             }
         })
         i += 1
-    
+
     return blocks
 
 def process_inline_formatting(text: str) -> list:
     """Process inline text formatting including bold, italic, and code."""
     formatted_text = []
-    
+
     # Pattern for finding formatted text segments
     pattern = r'(\*\*.*?\*\*|\*.*?\*|`.*?`|[^*`]+)'
-    
+
     segments = re.findall(pattern, text)
-    
+
     for segment in segments:
         if segment.startswith('**') and segment.endswith('**'):
             # Bold text
@@ -150,7 +152,7 @@ def process_inline_formatting(text: str) -> list:
                         "code": False
                     }
                 })
-    
+
     return formatted_text
 
 @function(
@@ -173,50 +175,46 @@ def process_inline_formatting(text: str) -> list:
 )
 async def create_notion_post(title: str, content: str, cover_image_url: str = None) -> dict:
     """Creates a new blog post in Notion with an optional cover image.
-    
+
     Args:
         title: The title of the blog post
         content: The markdown content of the blog post
         cover_image_url: Optional URL for the cover image
     """
-    try:
-        load_dotenv()
-        token = os.getenv("NOTION_TOKEN")
-        database_id = os.getenv("NOTION_DATABASE_ID")
-        
-        if not token or not database_id:
-            raise ValueError("Missing Notion configuration")
-        
-        notion = Client(auth=token)
-        notion_blocks = markdown_to_notion_blocks(content)
-        
-        # Prepare the page creation parameters
-        page_params = {
-            "parent": {"database_id": database_id},
-            "properties": {
-                "Title": {
-                    "title": [{"text": {"content": title}}]
-                }
-            },
-            "children": notion_blocks
-        }
-        
-        # Add cover image if URL is provided
-        if cover_image_url:
-            page_params["cover"] = {
-                "type": "external",
-                "external": {
-                    "url": cover_image_url
-                }
+    token = os.getenv("NOTION_TOKEN")
+    database_id = os.getenv("NOTION_DATABASE_ID")
+
+    if not token or not database_id:
+        raise ValueError("Missing Notion configuration")
+
+    notion = Client(auth=token)
+    notion_blocks = markdown_to_notion_blocks(content)
+
+    # Prepare the page creation parameters
+    page_params = {
+        "parent": {"database_id": database_id},
+        "properties": {
+            "Name": {
+                "title": [{"text": {"content": title}}]
             }
-        
-        new_page = notion.pages.create(**page_params)
-        
-        return {
-            "page_id": new_page["id"],
-            "url": f"https://notion.so/{new_page['id'].replace('-', '')}",
-            "status": "success",
-            "message": "Blog post created successfully!"
+        },
+        "children": notion_blocks
+    }
+
+    # Add cover image if URL is provided
+    if cover_image_url:
+        page_params["cover"] = {
+            "type": "external",
+            "external": {
+                "url": cover_image_url
+            }
         }
-    except Exception as e:
-        return {"status": "error", "message": str(e)} 
+
+    new_page = notion.pages.create(**page_params)
+
+    return {
+        "page_id": new_page["id"],
+        "url": f"https://notion.so/{new_page['id'].replace('-', '')}",
+        "status": "success",
+        "message": "Blog post created successfully!"
+    }
